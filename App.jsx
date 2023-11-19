@@ -1,10 +1,11 @@
 import React from "react"
 
 export default function App() {
+	// change the  name of keys to match css  :root format
 	const [filter, setFilter] = React.useState({
-		brightness: 1,
-		contrast: 1,
-		saturation: 1,
+		"--brightness": 1,
+		"--contrast": 1,
+		"--saturation": 1,
 	})
 	    
 /* Challenge
@@ -23,22 +24,29 @@ export default function App() {
 		4. Try to make your code as DRY as possible! 
 */
 
+	const handleOnChange = (e) =>{
+		const {value, name} = e.target
+		setFilter(prevFilterSettings => ({...prevFilterSettings, [name]:value}))
+	}
+	
 	return (
 		<div className="main-container">
 			<h1><span>📷</span> Photo Editor <span>📷</span></h1>
 
-			<div className="image-container">
-				<img src="./images/kunal-goswami-CuUn__aMGD4-unsplash.jpg" />
+			<div className="image-container" >
+				<img src="./images/kunal-goswami-CuUn__aMGD4-unsplash.jpg" style={filter} />
 			</div>
 
 			<form>
 				<label>
 					<input
 						type="range"
-						name="brightness"
+						name="--brightness"
 						min={0}
 						max={2}
 						step={0.1}
+						value= {filter["--brightness"]}// acess value from given key 
+						onChange={handleOnChange}
 					/>
 					<span>Brightness</span>
 				</label>
@@ -46,10 +54,12 @@ export default function App() {
 				<label>
 					<input
 						type="range"
-						name="contrast"
+						name="--contrast"
 						min={0}
 						max={2}
 						step={0.1}
+						value= {filter["--contrast"]}
+						onChange={handleOnChange}
 					/>
 					<span>Contrast</span>
 				</label>
@@ -57,10 +67,12 @@ export default function App() {
 				<label>
 					<input
 						type="range"
-						name="saturation"
+						name="--saturation"
 						min={0}
 						max={2}
 						step={0.1}
+						value= {filter["--saturation"]}
+						onChange={handleOnChange}
 					/>
 					<span>Saturation</span>
 				</label>
